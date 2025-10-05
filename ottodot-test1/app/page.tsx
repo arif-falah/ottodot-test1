@@ -7,11 +7,12 @@ export default function Home() {
   const [session, setSession] = useState<ProblemSession | null>(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [submission, setSubmission] = useState<Submission | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const generateNewProblem = async () => {
-    setIsLoading(true);
+    setIsGenerating(true);
     setError(null);
     setSubmission(null);
     setUserAnswer('');
@@ -32,7 +33,7 @@ export default function Home() {
       setError('Network error. Please try again.');
       console.error(err);
     } finally {
-      setIsLoading(false);
+      setIsGenerating(false);
     }
   };
 
@@ -41,7 +42,7 @@ export default function Home() {
 
     if (!session || !userAnswer.trim()) return;
 
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError(null);
 
     try {
@@ -67,7 +68,7 @@ export default function Home() {
       setError('Network error. Please try again.');
       console.error(err);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -88,10 +89,10 @@ export default function Home() {
         <div className="mb-8 text-center">
           <button
             onClick={generateNewProblem}
-            disabled={isLoading}
+            disabled={isGenerating || isSubmitting}
             className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-colors duration-200 text-lg"
           >
-            {isLoading && !session ? 'Generating...' : 'Generate New Problem'}
+            {isGenerating ? 'Please Wait While We Generating The Problem...' : 'Generate New Problem'}
           </button>
         </div>
 
@@ -103,7 +104,7 @@ export default function Home() {
         )}
 
         {/* Problem Display */}
-        {session && (
+        {session && !isGenerating && (
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 sm:p-8 mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Problem
@@ -112,7 +113,7 @@ export default function Home() {
               {session.problem_text}
             </p>
 
-            {/* Answer Form */}
+            {/* Answer Form - Show until submission is complete */}
             {!submission && (
               <form onSubmit={submitAnswer} className="space-y-4">
                 <div>
@@ -127,16 +128,16 @@ export default function Home() {
                     onChange={(e) => setUserAnswer(e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-lg"
                     placeholder="Enter your answer"
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  disabled={isLoading || !userAnswer.trim()}
+                  disabled={isSubmitting || !userAnswer.trim()}
                   className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200"
                 >
-                  {isLoading ? 'Submitting...' : 'Submit Answer'}
+                  {isSubmitting ? 'Submitting Your Answer...' : 'Submit Answer'}
                 </button>
               </form>
             )}
@@ -182,7 +183,7 @@ export default function Home() {
         )}
 
         {/* Instructions */}
-        {!session && !isLoading && (
+        {!session && !isGenerating && (
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 sm:p-8">
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Welcome! 👋
