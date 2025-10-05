@@ -5,8 +5,55 @@ import type { MathProblem } from '@/types';
 
 export async function POST() {
   try {
+    // Choose a random Primary 5 sub-strand/micro-topic to ensure variety
+    const topics = [
+      // WHOLE NUMBERS
+      "WHOLE NUMBERS — Numbers up to 10 million: reading & writing in numerals and words",
+      "WHOLE NUMBERS — Four operations: order of operations with brackets (no calculator)",
+      "WHOLE NUMBERS — Multiply/divide by 10, 100, 1000 and multiples (no calculator)",
+
+      // FRACTIONS
+      "FRACTIONS — Division: whole number ÷ whole number with quotient as a fraction (e.g., 3 ÷ 4 = 3/4)",
+      "FRACTIONS — Expressing fractions as decimals",
+      "FRACTIONS — Add and subtract mixed numbers",
+      "FRACTIONS — Multiply proper/improper fraction × whole number (no calculator)",
+      "FRACTIONS — Multiply proper fraction × proper/improper fraction (no calculator)",
+      "FRACTIONS — Multiply two improper fractions",
+      "FRACTIONS — Multiply mixed number × whole number",
+
+      // DECIMALS
+      "DECIMALS — Multiply/divide decimals (≤ 3 dp) by 10/100/1000 and multiples (no calculator)",
+      "DECIMALS — Unit conversions in decimal form: kilometres ↔ metres",
+      "DECIMALS — Unit conversions in decimal form: metres ↔ centimetres",
+      "DECIMALS — Unit conversions in decimal form: kilograms ↔ grams",
+      "DECIMALS — Unit conversions in decimal form: litres ↔ millilitres",
+
+      // PERCENTAGE
+      "PERCENTAGE — Expressing part of a whole as a percentage; use of %",
+      "PERCENTAGE — Finding a percentage part of a whole",
+      "PERCENTAGE — Real-world: finding discount / GST / annual interest",
+
+      // RATE
+      "RATE — rate as amount per unit; find rate, total, or units given two quantities",
+
+      // AREA & VOLUME
+      "AREA — Triangle: identify base & height; area = base × height ÷ 2",
+      "AREA — Composite figures made of rectangles, squares, triangles",
+      "VOLUME — Cube/Cuboid: build with unit cubes; volume = length × width × height",
+      "VOLUME — Liquid volume in rectangular tank; 1 ml = 1 cm³; 1 ℓ = 1000 cm³",
+
+      // GEOMETRY
+      "GEOMETRY — Angles on a straight line (180°); at a point (360°); vertically opposite angles",
+      "GEOMETRY — Triangles: properties (isosceles/equilateral/right-angled); angle sum = 180°",
+      "GEOMETRY — Quadrilaterals: properties (parallelogram/rhombus/trapezium); find unknown angles"
+    ] as const;
+
+    const chosen = topics[Math.floor(Math.random() * topics.length)];
+
     // Generate math problem using Gemini AI - EXACT alignment with Singapore Primary 5 Mathematics Syllabus (2021)
     const prompt = `Generate a single math word problem STRICTLY aligned with the Singapore Primary 5 Mathematics Syllabus (2021) for students aged 10-11.
+
+CHOSEN SUB-STRAND/MICRO-TOPIC (use this ONLY): ${chosen}
 
 ═══════════════════════════════════════════════════════════════════
 NUMBERS AND ALGEBRA - SELECT ONE SUB-STRAND:
@@ -116,7 +163,7 @@ PROBLEM-SOLVING HEURISTICS (incorporate naturally):
 ═══════════════════════════════════════════════════════════════════
 STRICT REQUIREMENTS:
 ═══════════════════════════════════════════════════════════════════
-1. SELECT EXACTLY ONE sub-strand from the syllabus above
+1. USE THE CHOSEN SUB-STRAND/MICRO-TOPIC ABOVE ONLY (do not choose another)
 2. Create a realistic, engaging scenario relevant to a 10-11 year old's daily life
 3. Problem difficulty: Requires 2-4 logical steps to solve
 4. Language: Clear, precise, age-appropriate (avoid ambiguity)
