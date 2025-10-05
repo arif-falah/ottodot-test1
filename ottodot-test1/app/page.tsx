@@ -136,7 +136,7 @@ export default function Home() {
                   disabled={isLoading || !userAnswer.trim()}
                   className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200"
                 >
-                  {isLoading ? 'Submitting...' : 'Submit Answer'}
+                  {isLoading ? 'Generating Problem...' : 'Submit Answer'}
                 </button>
               </form>
             )}
