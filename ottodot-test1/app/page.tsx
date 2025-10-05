@@ -80,7 +80,7 @@ export default function Home() {
             Math Practice
           </h1>
           <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Primary 5 Word Problems
+            Developed By: Arif Fayyadh <span role="img" aria-label="love">❤️</span> For Ottodot (Test 1)
           </p>
         </div>
 
@@ -176,12 +176,6 @@ export default function Home() {
                   </p>
                 </div>
 
-                <button
-                  onClick={generateNewProblem}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200"
-                >
-                  Try Another Problem
-                </button>
               </div>
             )}
           </div>
@@ -194,15 +188,23 @@ export default function Home() {
               Welcome! 👋
             </h2>
             <div className="text-gray-700 dark:text-gray-300 space-y-3">
-              <p>Click the button above to generate a new math word problem.</p>
-              <p>Each problem is designed for Primary 5 students and covers topics like:</p>
+              <p>Click the button above to generate a new math word problem aligned with the Singapore Primary 5 syllabus.</p>
+              <p>Problems may cover any of the Primary 5 sub-strands, including:</p>
               <ul className="list-disc list-inside ml-4 space-y-1">
-                <li>Fractions and decimals</li>
-                <li>Percentages and ratios</li>
-                <li>Areas and volumes</li>
-                <li>Algebraic thinking</li>
+                <li>Whole numbers (up to 10,000,000), order of operations, brackets</li>
+                <li>Fractions (proper, improper, mixed) — addition, subtraction, multiplication</li>
+                <li>Decimals and unit conversions (km↔m, kg↔g, ℓ↔ml)</li>
+                <li>Percentages (discount, GST, interest) and rates</li>
+                <li>Area of triangle and volume of cuboid/cube</li>
+                <li>Angle properties, triangle and quadrilateral reasoning</li>
               </ul>
-              <p className="mt-4">After submitting your answer, you'll receive personalized feedback to help you learn!</p>
+              <p className="mt-2">Answer format helper:</p>
+              <ul className="list-disc list-inside ml-4 space-y-1">
+                <li>Enter integers or decimals (accepted up to 2 decimal places). Example: <code>42</code> or <code>3.5</code>.</li>
+                <li>If a fraction is expected, enter the decimal equivalent unless asked otherwise. Example: <code>3/4</code> → enter <code>0.75</code>.</li>
+                <li>Some problems are explicitly set to be solved without a calculator — use mental strategies or paper working.</li>
+              </ul>
+              <p className="mt-4">After submitting your answer, you'll receive warm, syllabus-aligned feedback that points out the concept involved and gives a helpful hint or praise.</p>
             </div>
           </div>
         )}
